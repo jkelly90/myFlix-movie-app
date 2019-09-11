@@ -23,8 +23,8 @@ http.createServer((request, response) => {
     response.end();
 
   });
-
-//log url and timestamp to log.txt
+  
+  //log url and timestamp to log.txt
   fs.appendFile('log.txt', 'URL: ' + addr + '\nTimestamp: ' + new Date() + '\n\n', function(err) {
     if (err) {
       console.log(err);
