@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 //json object
-let movies = [ {
+let topMovies = [ {
     title: 'Lost in Translation',
     director: 'Sofia Coppola'
 },
@@ -43,4 +43,14 @@ let movies = [ {
     director: 'Makoto Shinkai'
 }
 ]
+
+//GET requests
+app.get('/movies', function(req, res){
+    res.json(topMovies)
+}); 
+
+app.get('/', function(req, res){
+    res.send('Welcome to my movie app!')
+});
+
 
