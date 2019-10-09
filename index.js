@@ -18,7 +18,7 @@ let movies = [
       birthYear: 1971,
       deathYear: "n/a",
       bio: "Sofia Coppola is a film director, screenwriter, producer and actor. She directed The Virgin Suicides and Lost in Translation, winning an Oscar for the latter.",
-    },
+    }
   },
   {
     title: 'Midnight in Paris',
@@ -31,7 +31,7 @@ let movies = [
       birthYear: 1935,
       deathYear: "n/a",
       bio: "Woody Allen is an American comedian, filmmaker and writer who directed and starred in two of his most famous films, 'Annie Hall' and 'Manhattan.'",
-    },
+    }
   },
   {
     title: 'Wings of Desire',
@@ -44,7 +44,7 @@ let movies = [
       birthYear: 1945,
       deathYear: "n/a",
       bio: "Ernst Wilhelm Wenders is a German filmmaker, playwright, author, and photographer. He is a major figure in New German Cinema.",
-    },
+    }
   },
   {
     title: 'Dances with Wolves ',
@@ -57,7 +57,7 @@ let movies = [
       birthYear: 1955,
       deathYear: "n/a",
       bio: "Film actor and director Kevin Costner directed and starred in the epic film Dances With Wolves (1990), which won seven Oscars.",
-    },
+    }
   },
   {
     title: 'Spirited Away',
@@ -70,7 +70,7 @@ let movies = [
       birthYear: 1941,
       deathYear: "n/a",
       bio: "Hayao Miyazaki is a Japanese animator, filmmaker, screenwriter, author, and manga artist. A co-founder of Studio Ghibli.",
-    },
+    }
   },
   {
     title: 'Coco',
@@ -83,7 +83,7 @@ let movies = [
       birthYear: 1967,
       deathYear: "n/a",
       bio: "Lee Edward Unkrich is an American director, film editor, screenwriter, and animator. He was a longtime member of the creative team at Pixar, where he started in 1994 as a film editor. ",
-    },
+    }
   },
   {
     title: 'The Lives of Others',
@@ -96,7 +96,7 @@ let movies = [
       birthYear: 1973,
       deathYear: "n/a",
       bio: "Florian Maria Georg Christian Graf Henckel von Donnersmarck is a German film director, best known for writing and directing the 2006 Oscar-winning dramatic thriller The Lives of Others.",
-    },
+    }
   },
   {
     title: 'The Hunt',
@@ -109,7 +109,7 @@ let movies = [
       birthYear: 1969,
       deathYear: "n/a",
       bio: "Thomas Vinterberg is a Danish film director who, along with Lars von Trier, co-founded the Dogme 95 movement in filmmaking, which established rules for simplifying movie production.",
-    },
+    }
   },
   {
     title: '2001: A Space Odyssey',
@@ -122,7 +122,7 @@ let movies = [
       birthYear: 1928,
       deathYear: 1999,
       bio: "Stanley Kubrick was an American filmmaker known for directing such acclaimed features as 'Dr. Strangelove,' 'A Clockwork Orange,' '2001: A Space Odyssey,' 'The Shining' and 'Full Metal Jacket.'",
-    },
+    }
   },
   {
     title: 'Your Name',
@@ -135,7 +135,7 @@ let movies = [
       birthYear: 1973,
       deathYear: "n/a",
       bio: "Makoto Shinkai is a Japanese animator, filmmaker, and manga artist best known for directing Your Name, the highest-grossing anime film of all time at the time of release.",
-    },
+    }
   }
 ];
 
@@ -150,6 +150,11 @@ app.get("/movies/:title", (req, res) => {
     { return movie.title === req.params.title }));
 });
 
+//Gets data about a genre
+app.get('/genre/:name', (req, res) => {
+  res.json(movies.find( (genre) =>
+  { return genre.name === req.params.genre; }));
+});
 
 
 
