@@ -1,7 +1,13 @@
 const express = require('express');
+  bodyParser = require("body-parser"),
+  uuid = require("uuid");
+
 const morgan = require('morgan');
 
 const app = express();
+
+app.use(bodyParser.json());
+
 
 app.use(morgan('common'));
 
@@ -47,7 +53,7 @@ let movies = [
     }
   },
   {
-    title: 'Dances with Wolves ',
+    title: 'Dances with Wolves',
     year: 1990,
     description: "Lieutenant John Dunbar, assigned to a remote western Civil War outpost, befriends wolves and Indians, making him an intolerable aberration in the military.",
     genre: "Drama",
@@ -102,7 +108,7 @@ let movies = [
     title: 'The Hunt',
     year: 2012,
     description: "A teacher lives a lonely life, all the while struggling over his son's custody. His life slowly gets better as he finds love and receives good news from his son, but his new luck is about to be brutally shattered by an innocent little lie.",
-    genre: "Drama",
+    genre: "drama",
     imageURL: "",
     director: {
       name: "Thomas Vinterberg",
@@ -139,28 +145,57 @@ let movies = [
   }
 ];
 
+
+//Welcome message
+app.get("/", (req, res) => {
+    res.send('Welcome to my movie app!')
+});
+
+
 //Gets list of ALL movies
-app.get('/movies', function(req, res){
+app.get("/movies", (req, res) => {
     res.json(movies)
 });
 
 //Gets data about a single movie, by Title
 app.get("/movies/:title", (req, res) => {
-  res.json(movies.find( (movie) =>
+    res.json(movies.find( (movie) =>
     { return movie.title === req.params.title }));
 });
 
 //Gets data about a genre
-app.get('/genre/:name', (req, res) => {
-  res.json(movies.find( (genre) =>
-  { return genre.name === req.params.genre; }));
+app.get("/genres/:name", (req, res) => {
+    res.send("Succesful request returning data about a genre")
 });
 
+//Gets data about a director
+app.get("/directors/:name", (req, res) => {
+    res.send("Succesful request returning data about a director");
+});
 
+//Add a new user
+app.post("/users", (req, res) => {
+    res.send("User was added to registry");
+});
 
+//Update users by ID
+app.put("/users/:id", (req, res) => {
+    res.send("User information was updated");
+});
 
-app.get('/', function(req, res){
-    res.send('Welcome to my movie app!')
+//Add movie to user's list of favourites
+app.post("/users/:id/:movie-id", (req, res) => {
+    res.send("The movie was successfully added to favourites")
+});
+
+//Remove a movie from user's list of favourites
+app.delete("/users/:id/movie-id", (req, res) => {
+    res.send("The movie was succesffuly removed from favourites")
+});
+
+//Remove a user using ID
+app.delete("/users/:id", (req, res) => {
+    res.send("The user was removed from the registry")
 });
 
 
