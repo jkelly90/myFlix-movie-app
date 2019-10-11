@@ -189,8 +189,8 @@ app.post("/users/:id/:movie-id", (req, res) => {
 });
 
 //Remove a movie from user's list of favourites
-app.delete("/users/:id/movie-id", (req, res) => {
-    res.send("The movie was succesffuly removed from favourites")
+app.delete("/users/:id/:movie-id", (req, res) => {
+    res.send("The movie was succesfully removed from favourites")
 });
 
 //Remove a user using ID
