@@ -6,12 +6,20 @@ const morgan = require('morgan');
 
 const app = express();
 
+const mongoose = require('mongoose');
+const Models = require('./models.js');
+
+const Movies = Models.Movie;
+const Users = Models.User;
+
+mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
+
 app.use(bodyParser.json());
 
 
 app.use(morgan('common'));
 
-//in memory array
+/*//in memory array
 let movies = [
   {
     title: 'Lost in Translation',
@@ -143,7 +151,7 @@ let movies = [
       bio: "Makoto Shinkai is a Japanese animator, filmmaker, and manga artist best known for directing Your Name, the highest-grossing anime film of all time at the time of release.",
     }
   }
-];
+];*/
 
 
 //Welcome message
