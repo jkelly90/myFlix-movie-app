@@ -27,49 +27,58 @@
           <td>n/a</td>
           <td>JSON object of data with all movies. Structure:
             <p>
-              {title: 'Your Name',
-              year: 2016,
-              description: "...",
-              genre: "Animation",
-              imageURL: "",
-              director: {
-                name: "Makoto Shinkai",
-                birthYear: 1973,
-                deathYear: "n/a",
-                bio: "....",}
+              {<br>
+              Title: "The Shawshank Redemption",<br>
+              Description: "Two imprisoned....",<br>
+              Genre: {<br>
+                &nbsp&nbsp&nbsp&nbspName: "Drama"<br>
+                &nbsp&nbsp&nbsp&nbspDescription: "Drama is a genre..."<br>
+                &nbsp&nbsp&nbsp&nbsp},<br>
+              Director: {<br>
+                &nbsp&nbsp&nbsp&nbspName: "Frank Darabont",<br>
+                &nbsp&nbsp&nbsp&nbspBio: "Three-time Oscar nominee...",<br>
+                &nbsp&nbsp&nbsp&nbspBirth: "1959"<br>
+                &nbsp&nbsp&nbsp&nbsp},<br>
+              ImagePath: "shawshank.png",<br>
+              Featured: true<br>
+              }<br>
+            
             </p>
           </td>
         </tr>
         <tr>
           <td>Returns informations about a single movie by title </td>
-          <td>/movies/:title</td>
+          <td>/movies/:Title</td>
           <td>GET</td>
           <td>n/a</td>
           <td>JSON object of a single movie same structure as above</td>
         </tr>
         <tr>
           <td>Returns information about a genre by name</td>
-          <td>/genre/:name</td>
+          <td>/movies/genres/:Name</td>
           <td>GET</td>
           <td>n/a</td>
           <td>JSON object of data about a movie genre; name and description. Example:
             <p>
-              {Name: "Drama", Description: "Fiction that is intended to be more serious than comedic"}
+              {<br>
+                Name: "Drama",<br>
+                 Description: "Fiction that is intended to be more serious than comedic"<br>
+                }
             </p>
           </td>
         </tr>
         <tr>
           <td>Returns information about a director</td>
-          <td>/director/:name</td>
+          <td>/movies/director/:Name</td>
           <td>GET</td>
           <td>n/a</td>
           <td>JSON object of data about a single director. Example:
             <p>
-              director: {
-              name: "Makoto Shinkai",
-              birthYear: 1973,
-              deathYear: "n/a",
-              bio: ""...",}
+                {<br>
+                  Name: "Steven Spielberg",<br>
+                  Bio: "One of the most influential...",<br>
+                  Birth: "1946"<br>
+              }
             </p>
           </td>
         </tr>
@@ -79,58 +88,64 @@
           <td>POST</td>
           <td>JSON object holding data about the user to add. Example:
             <p>
-              { name: "John Kelly"
-              username: "jk123",
-              password: "qwerty123",
-              email: "john@gmail.com",
-              dateofbirth: "1/1/1990" }
+              {<br>
+                Name:"vanman",<br>
+                Password:"movies",<br>
+                Email:"vanmanfield@gmail.com",<br>
+                Birthday:"1962-03-22"},<br>
+                Favorites:[...]<br>
+              }
             </p>
             </td>
           <td>JSON object holding data about the user to add. Example:
             <p>
-              { name: "John Kelly"
-              username: "jk123",
-              password: "qwerty123",
-              email: "john@gmail.com",
-              dateofbirth: "1/1/1990" }
+                {<br>
+                  Name:"vanman",<br>
+                  Password:"movies",<br>
+                  Email:"vanmanfield@gmail.com",<br>
+                  Birthday:"1962-03-22"},<br>
+                  Favorites:[...]<br>
+                }
             </p>
           </td>
         </tr>
         <tr>
           <td>Allows users to update their user information</td>
-          <td>/users/:id</td>
+          <td>/users/:Username</td>
           <td>PUT</td>
           <td>JSON object holding data about the user to add. Example:
             <p>
-              { name: "John Kelly"
-              username: "jk123",
-              password: "qwerty123",
-              email: "john@gmail.com",
-              dateofbirth: "1/1/1990" }
+                {<br>
+                  Name:"vanman",<br>
+                  Password:"movies",<br>
+                  Email:"vanmanfield@gmail.com",<br>
+                  Birthday:"1962-03-22"},<br>
+                  Favorites:[...]<br>
+                }
             </p>
           </td>
-          <td>Text message exlaining that the user's information is updated</td>
+          <td>Message exlaining User's information was updated</td>
         </tr>
         <tr>
           <td>Allows users to add a movie to their list of favourites</td>
-          <td>/users/:id/:movie-id</td>
+          <td>/users/:Username/Movies/:MovieID</td>
           <td>POST</td>
           <td>n/a</td>
-          <td>Text message explaining a movies was added to the user's list of favourites</td>
+          <td>Message explaining the selected movie was added to the User's list of favorites</td>
         </tr>
         <tr>
           <td>Remove a movie from a user's list of favourites</td>
-          <td>/users/:id/:movie-id</td>
+          <td>/users/:Username/Movies/:MovieID</td>
           <td>DELETE</td>
           <td>n/a</td>
-          <td>Text message explaining that a movie was deleted from the user's list of favourites </td>
+          <td>Message explaining the selected movie was delete from User's favorites </td>
         </tr>
         <tr>
           <td>Remove a user from the registry</td>
-          <td>/users/:id/</td>
+          <td>/users/:Username</td>
           <td>DELETE</td>
           <td>n/a</td>
-          <td>Text message explaining that a the user was removed from the registry</td>
+          <td>Message explaining the selected User was removed from the registry</td>
 
         </tr>
       </tbody>

@@ -138,7 +138,7 @@ app.post("/users/:Username/Movies/:MovieID", (req, res) => {
       console.error(error);
       res.status(500).send("Error: " + error);
     } else {
-      res.json(updatedUser)
+      res.json(updatedUser);
     }
   })
 });
