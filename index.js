@@ -26,29 +26,62 @@ app.get("/", (req, res) => {
 });
 
 
+
 //Gets list of ALL movies
 app.get("/movies", (req, res) => {
-    res.json(movies)
+    Movies.find()
+    .then(function(movies){
+      res.status(201).json(movies)
+    })
+    .catch(function(error){
+      console.error(error);
+      res.status(500).send("Error" + err);
+    });
 });
 
 //Gets data about a single movie, by Title
-app.get("/movies/:title", (req, res) => {
-    res.json(movies.find( (movie) =>
-    { return movie.title === req.params.title }));
+app.get("/movies/:Title", (req, res) => {
+    Movies.find({Title : req.params.Title})
+    .then(function(movies){
+      res.status(201).json(movies)
+    })
+    .catch(function(error){
+      console.error(error);
+      res.status(500).send("Error" + err);
+    });
 });
+
 
 //Gets data about a genre
-app.get("/genres/:name", (req, res) => {
-    res.send("Succesful request returning data about a genre")
+app.get("/movies/genres/:Name", (req, res) => {
+    Movies.findOne({"Genre.Name" : req.params.Name})
+       .then(function(movies){
+          res.json(movies.Genre)
+      })
+       .catch(function(error){
+          console.error(error);
+          res.status(500).send("Error" + err);
+      }); 
 });
 
+
 //Gets data about a director
-app.get("/directors/:name", (req, res) => {
-    res.send("Succesful request returning data about a director");
+app.get("/movies/director/:Name", (req, res) => {
+  Movies.findOne({"Director.Name" : req.params.Name})
+     .then(function(movies){
+        res.json(movies.Director)
+    })
+     .catch(function(error){
+        console.error(error);
+        res.status(500).send("Error" + err);
+    }); 
 });
+
+
 
 //Add a new user
 app.post("/users", (req, res) => {
+
     res.send("User was added to registry");
 });
 
@@ -63,7 +96,7 @@ app.post("/users/:id/:movie-id", (req, res) => {
 });
 
 //Remove a movie from user's list of favourites
-app.delete("/users/:id/:movie-id", (req, res) => {
+app.delete("/users/Username/:movie-id", (req, res) => {
     res.send("The movie was succesfully removed from favourites")
 });
 
@@ -80,6 +113,8 @@ app.use(function (err, req, res, next) {
     res.status(500).send('Something broke!');
   });
 
+
   app.listen(8080, () => {
     console.log(`Your app is listening on port 8080`);
-  });
+  }); 
+
