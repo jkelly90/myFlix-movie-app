@@ -1,23 +1,22 @@
 const express = require('express');
-  bodyParser = require("body-parser"),
-  uuid = require("uuid");
-
-const morgan = require('morgan');
-
 const app = express();
-
+const morgan = require('morgan');
+const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const Models = require('./models.js');
+const uuid = require("uuid");
 
 const Movies = Models.Movie;
 const Users = Models.User;
+const passport = require('passport');
+require('./passport');
 
 mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
 
 app.use(bodyParser.json());
-
-
 app.use(morgan('common'));
+
+var auth = require('./auth') (app);
 
 
 //Welcome message
