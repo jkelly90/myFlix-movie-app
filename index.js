@@ -89,6 +89,7 @@ app.get("/movies/director/:Name", passport.authenticate('jwt', { session: false 
 
 //Add a new user
 app.post("/users", passport.authenticate('jwt', { session: false }), (req, res) => {
+  var hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({ Username : req.body.Username })
   .then(function(user) {
     if (user) {
@@ -97,7 +98,7 @@ app.post("/users", passport.authenticate('jwt', { session: false }), (req, res) 
       Users
       .create({
         Username: req.body.Username,
-        Password: req.body.Password,
+        Password: hashedPassword,
         Email: req.body.Email,
         Birthday: req.body.Birthday
       })
