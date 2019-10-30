@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 const uuid = require("uuid");
+const {check, validationResult} = require('express-validator');
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -88,8 +89,23 @@ app.get("/movies/director/:Name", passport.authenticate('jwt', { session: false 
 });
 
 //Add a new user
-app.post("/users", passport.authenticate('jwt', { session: false }), (req, res) => {
+app.post("/users",
+  passport.authenticate('jwt', { session: false }),[
+  check('Username', 'Username is required'.isLength({min: 5}),
+  check('Username', 'Username contains non alphanumeric characters - not allowed').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()
+  ], (req, res) => {
+
+    //check validation object for errors
+  var errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({errors: errors.array() });
+  }
+
   var hashedPassword = Users.hashPassword(req.body.Password);
+  
   Users.findOne({ Username : req.body.Username })
   .then(function(user) {
     if (user) {
@@ -115,7 +131,21 @@ app.post("/users", passport.authenticate('jwt', { session: false }), (req, res) 
 });
 
 //Update users by ID
-app.put("/users/:Username", passport.authenticate('jwt', { session: false }), (req, res) => {
+app.put("/users/:Username", passport.authenticate('jwt', { session: false }), 
+  check('Username', 'Username is required'.isLength({min: 5}),
+  check('Username', 'Username contains non alphanumeric characters - not allowed').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()
+], (req, res) => {
+
+  var errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({errors: errors.array() });
+  }
+
+  var hashedPassword = Users.hashPassword(req.body.Password);
+
   Users.findOneAndUpdate({ Username : req.params.Username }, { 
     $set :
     {
