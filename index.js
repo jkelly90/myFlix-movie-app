@@ -18,13 +18,26 @@ app.use(morgan('common'));
 
 var auth = require('./auth') (app);
 
+const cors = require('cors');
+app.use(cors());
+
+var allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+
+app.use(cors({
+  origin: function(origin, callback){
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){
+      var message = 'The CORS policy for this application does not allow access from origin ' + origin;
+      return callback(new Error(message), false);
+    }
+    return callback(null, true);
+  }
+}));
 
 //Welcome message
 app.get("/", (req, res) => {
     res.send('Welcome to my movie app!')
 });
-
-
 
 //Gets list of ALL movies
 app.get("/movies", passport.authenticate('jwt', { session: false }), (req, res) => {
@@ -50,7 +63,6 @@ app.get("/movies/:Title", passport.authenticate('jwt', { session: false }), (req
     });
 });
 
-
 //Gets data about a genre
 app.get("/movies/genres/:Name", passport.authenticate('jwt', { session: false }), (req, res) => {
     Movies.findOne({"Genre.Name" : req.params.Name})
@@ -63,7 +75,6 @@ app.get("/movies/genres/:Name", passport.authenticate('jwt', { session: false })
       }); 
 });
 
-
 //Gets data about a director
 app.get("/movies/director/:Name", passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.findOne({"Director.Name" : req.params.Name})
@@ -75,8 +86,6 @@ app.get("/movies/director/:Name", passport.authenticate('jwt', { session: false 
         res.status(500).send("Error" + err);
     }); 
 });
-
-
 
 //Add a new user
 app.post("/users", passport.authenticate('jwt', { session: false }), (req, res) => {
@@ -158,7 +167,6 @@ app.delete("/users/:Username/Movies/:MovieID", passport.authenticate('jwt', { se
   })
 });
 
-
 //Remove a user using ID
 app.delete("/users/:Username", passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndRemove({ Username: req.params.Username })
@@ -175,7 +183,6 @@ app.delete("/users/:Username", passport.authenticate('jwt', { session: false }),
   });
 });
 
-
 app.use(express.static('public'));
 
 app.use(function (err, req, res, next) {
@@ -187,4 +194,3 @@ app.use(function (err, req, res, next) {
   app.listen(8080, () => {
     console.log(`Your app is listening on port 8080`);
   }); 
-
