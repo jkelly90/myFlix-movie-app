@@ -90,12 +90,12 @@ app.get("/movies/director/:Name", passport.authenticate('jwt', { session: false 
 
 //Add a new user
 app.post("/users",
-  [
-  check('Username', 'Username is required'.isLength({min: 5}),
-  check('Username', 'Username contains non alphanumeric characters - not allowed').isAlphanumeric(),
-  check('Password', 'Password is required').not().isEmpty(),
-  check('Email', 'Email does not appear to be valid').isEmail()
-  ], (req, res) => {
+[
+  check("username", "username is required").isLength({ min: 5 }),
+  check("username","username contains non alphanumeric characters - not allowed.").isAlphanumeric(),
+  check("password", "password is required").not().isEmpty(),
+  check("email", "email does not appear to be valid").isEmail()
+], (req, res) => {
 
     //check validation object for errors
   var errors = validationResult(req);
@@ -131,11 +131,12 @@ app.post("/users",
 });
 
 //Update users by ID
-app.put("/users/:Username", passport.authenticate('jwt', { session: false }), 
-  check('Username', 'Username is required'.isLength({min: 5}),
-  check('Username', 'Username contains non alphanumeric characters - not allowed').isAlphanumeric(),
-  check('Password', 'Password is required').not().isEmpty(),
-  check('Email', 'Email does not appear to be valid').isEmail()
+app.put("/users/:Username", passport.authenticate('jwt', { session: false }),
+[
+  check("username", "username is required").isLength({ min: 5 }),
+  check("username","username contains non alphanumeric characters - not allowed.").isAlphanumeric(),
+  check("password", "password is required").not().isEmpty(),
+  check("email", "email does not appear to be valid").isEmail()
 ], (req, res) => {
 
   var errors = validationResult(req);
@@ -164,7 +165,7 @@ app.put("/users/:Username", passport.authenticate('jwt', { session: false }),
         res.json(updatedUser)
       }
     })
-  });
+  })
 
 //Add movie to user's list of favourites
 app.post("/users/:Username/Movies/:MovieID", passport.authenticate('jwt', { session: false }), (req, res) => {
