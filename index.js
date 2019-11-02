@@ -12,7 +12,9 @@ const Users = Models.User;
 const passport = require('passport');
 require('./passport');
 
-mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
+//mongoose.connect('mongodb://localhost:27017/myFlixDB', {useNewUrlParser: true});
+
+mongoose.connect('mongodb+srv://jkelly:mongoosepassword@myflixdb-vliwy.mongodb.net/myFlixDB?retryWrites=true&w=majority',  { useNewUrlParser: true });
 
 app.use(bodyParser.json());
 app.use(morgan('common'));
