@@ -1,18 +1,18 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-
+const saltRounds = 10;
 
 //schema for movies
 var movieSchema = mongoose.Schema({
-    Title : {type: String, required: true},
-    Description : {type: String, required: true},
-    Genre : {
-        Name : String,
-        Description : String
+    title : {type: String, required: true},
+    description : {type: String, required: true},
+    genre : {
+        name : String,
+        description : String
     },
-    Director : {
-        Name : String,
-        Bio : String
+    director : {
+        name : String,
+        bio : String
     },
     /*Actors : [String],
     ImagePath : String,
@@ -21,15 +21,16 @@ var movieSchema = mongoose.Schema({
 
 //schema for users
 var userSchema = mongoose.Schema({
-    Username : {type: String, required: true},
-    Password : {type: String, required: true},
-    Email : {type: String, required: true},
-    Birthday : Date,
-    FavoriteMovies : [{ type : mongoose.Schema.Types.ObjectId, ref: 'Movie'}]
+    username : {type: String, required: true},
+    password : {type: String, required: true},
+    email : {type: String, required: true},
+    birthday : Date,
+    favoriteMovies : [{ type : mongoose.Schema.Types.ObjectId, ref: 'Movie'}]
 });
 
 userSchema.statics.hashPassword = function(password) {
-    return bcrypt.hashSync(password, 10);
+    var salt = bcrypt.genSaltSync(saltRounds);
+    return bcrypt.hashSync(password, salt);
 };
 
 userSchema.methods.validatePassword = function(password) {
