@@ -24,7 +24,7 @@ var auth = require('./auth') (app);
 const cors = require('cors');
 app.use(cors());
 
-var allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
+var allowedOrigins = ['http://localhost:8080', 'http://localhost:3000', 'http://testsite.com'];
 
 app.use(cors({
   origin: function(origin, callback){
@@ -106,19 +106,19 @@ app.post("/users",
     return res.status(422).json({errors: errors.array() });
   }
 
-  var hashedPassword = Users.hashPassword(req.body.Password);
+  var hashedPassword = Users.hashPassword(req.body.password);
   
-  Users.findOne({ Username : req.body.Username })
+  Users.findOne({ username : req.body.username })
   .then(function(user) {
     if (user) {
-      return res.status(400).send(req.body.Username + "already exists");
+      return res.status(400).send(req.body.username + "already exists");
     } else {
       Users
       .create({
-        Username: req.body.Username,
-        Password: hashedPassword,
-        Email: req.body.Email,
-        Birthday: req.body.Birthday
+        username: req.body.username,
+        password: hashedPassword,
+        email: req.body.email,
+        birthday: req.body.birthday
       })
       .then(function(user) {res.status(201).json(user) })
       .catch(function(error) {
@@ -147,15 +147,15 @@ app.put("/users/:Username", passport.authenticate('jwt', { session: false }),
     return res.status(422).json({errors: errors.array() });
   }
 
-  var hashedPassword = Users.hashPassword(req.body.Password);
+  var hashedPassword = Users.hashPassword(req.body.password);
 
-  Users.findOneAndUpdate({ Username : req.params.Username }, { 
+  Users.findOneAndUpdate({ username : req.params.username }, { 
     $set :
     {
-      Username : req.body.Username,
-      Password : req.body.Password,
-      Email : req.body.Email,
-      Birthday : req.body.Birthday
+      username : req.body.username,
+      password : req.body.password,
+      email : req.body.email,
+      birthday : req.body.birthday
     }
   },
     { new : true },
@@ -171,7 +171,7 @@ app.put("/users/:Username", passport.authenticate('jwt', { session: false }),
 
 //Add movie to user's list of favourites
 app.post("/users/:Username/Movies/:MovieID", passport.authenticate('jwt', { session: false }), (req, res) => {
-  Users.findOneAndUpdate({ Username : req.params.Username }, {
+  Users.findOneAndUpdate({ username : req.params.username }, {
     $push : { Favorites : req.params.MovieID }
   },
   { new : true }, 
@@ -187,7 +187,7 @@ app.post("/users/:Username/Movies/:MovieID", passport.authenticate('jwt', { sess
 
 //Remove a movie from user's list of favourites
 app.delete("/users/:Username/Movies/:MovieID", passport.authenticate('jwt', { session: false }), (req, res) => {
-  Users.findOneAndUpdate({ Username : req.params.Username }, {
+  Users.findOneAndUpdate({ username : req.params.username }, {
     $pull : { Favorites : req.params.MovieID }
   },
   { new : true }, 
@@ -203,12 +203,12 @@ app.delete("/users/:Username/Movies/:MovieID", passport.authenticate('jwt', { se
 
 //Remove a user using ID
 app.delete("/users/:Username", passport.authenticate('jwt', { session: false }), (req, res) => {
-  Users.findOneAndRemove({ Username: req.params.Username })
+  Users.findOneAndRemove({ username: req.params.username })
   .then(function(user) {
     if (!user) {
-      res.status(400).send(req.params.Username + " was not found");
+      res.status(400).send(req.params.username + " was not found");
     } else {
-      res.status(200).send(req.params.Username + " was deleted.");
+      res.status(200).send(req.params.username + " was deleted.");
     }
   })
   .catch(function(err) {
