@@ -3,16 +3,16 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 //schema for movies
-var movieSchema = mongoose.Schema({
-    title : {type: String, required: true},
-    description : {type: String, required: true},
-    genre : {
-        name : String,
-        description : String
+const movieSchema = mongoose.Schema({
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    genre: {
+        name: String,
+        description: String
     },
-    director : {
-        name : String,
-        bio : String
+    director: {
+        name: String,
+        bio: String
     },
     /*Actors : [String],
     ImagePath : String,
@@ -20,25 +20,25 @@ var movieSchema = mongoose.Schema({
 });
 
 //schema for users
-var userSchema = mongoose.Schema({
-    username : {type: String, required: true},
-    password : {type: String, required: true},
-    email : {type: String, required: true},
-    birthday : Date,
-    favoriteMovies : [{ type : mongoose.Schema.Types.ObjectId, ref: 'Movie'}]
+const userSchema = mongoose.Schema({
+    username: { type: String, required: true },
+    password: { type: String, required: true },
+    email: { type: String, required: true },
+    birthday: Date,
+    favoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }]
 });
 
-userSchema.statics.hashPassword = function(password) {
-    var salt = bcrypt.genSaltSync(saltRounds);
+userSchema.statics.hashPassword = function (password) {
+    const salt = bcrypt.genSaltSync(saltRounds);
     return bcrypt.hashSync(password, salt);
 };
 
-userSchema.methods.validatePassword = function(password) {
-    return bcrypt.compareSync(password, this.Password);
+userSchema.methods.validatePassword = function (password) {
+    return bcrypt.compareSync(password, this.password);
 };
 
-var Movie = mongoose.model('Movie', movieSchema);
-var User = mongoose.model('User', userSchema);
+const Movie = mongoose.model('Movie', movieSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports.Movie = Movie;
 module.exports.User = User;
