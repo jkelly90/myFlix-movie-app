@@ -1,9 +1,10 @@
 import React from 'react';
 import axios from 'axios';
+import { MovieCard } from '.../movie-card/movie-card';
 
 export class MainView extends React.Component {
     constructor() {
-        //call superclass constructor so reac can initialize it
+        //call superclass constructor so react can initialize it
         super();
 
         //initialize the state to an empty object so can be destructured later
