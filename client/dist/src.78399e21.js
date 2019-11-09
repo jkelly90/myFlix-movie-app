@@ -33628,11 +33628,11 @@ function (_React$Component) {
         className: "label"
       }, "Director: "), _react.default.createElement("span", {
         className: "value"
-      }, movie.Director.Name)), _react.default.createElement("div", {
+      }, movie.Director.Name)), _react.default.createElement("a", {
+        href: '/'
+      }, _react.default.createElement("button", {
         className: "back-button"
-      }, _react.default.createElement("button", null, _react.default.createElement("a", {
-        href: "/main-view/main-view.jsx"
-      }, "back"))));
+      }, "Back")));
     }
   }]);
 
@@ -33907,7 +33907,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38291" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "33497" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
