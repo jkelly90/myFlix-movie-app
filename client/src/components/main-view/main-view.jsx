@@ -12,7 +12,8 @@ export class MainView extends React.Component {
         //initialize the state to an empty object so can be destructured later
         this.state = {
             movies: null,
-            selectedMovie: null
+            selectedMovie: null,
+            user: null
         };
     }
 
