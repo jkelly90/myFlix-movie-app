@@ -35980,12 +35980,21 @@ function (_React$Component) {
       var _this$props = this.props,
           movie = _this$props.movie,
           _onClick = _this$props.onClick;
-      return _react.default.createElement("div", {
+      return _react.default.createElement(_Card.default, {
+        style: {
+          width: '16rem'
+        }
+      }, _react.default.createElement(_Card.default.Img, {
+        variant: "top",
+        src: movie.ImagePath
+      }), _react.default.createElement(_Card.default.Body, null, _react.default.createElement(_Card.default.Title, null, movie.Title), _react.default.createElement(_Card.default.Text, null, movie.Description), _react.default.createElement(_Button.default, {
         onClick: function onClick() {
           return _onClick(movie);
         },
-        className: "movie-card"
-      }, movie.Title);
+        variant: "link"
+      }, "Open")))
+      /*<div onClick={() => onClick(movie)} className="movie-card">{movie.Title}</div>*/
+      ;
     }
   }]);
 
@@ -36371,7 +36380,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43301" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44147" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
