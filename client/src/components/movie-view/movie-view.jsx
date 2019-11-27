@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Button from 'react-bootstrap/Button';
+
 export class MovieView extends React.Component {
 
     constructor() {
@@ -33,7 +35,7 @@ export class MovieView extends React.Component {
                     <span className="label">Director: </span>
                     <span className="value">{movie.Director.Name}</span>
                 </div>
-                <a href={'/'}><button className="back-button">Back</button></a>
+                <a href={'/'}><Button className="back-button">Back</Button></a>
             </div>
         );
     }

@@ -4,8 +4,10 @@ import axios from 'axios';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 import './main-view.scss';
 
+import { RegistrationView } from '../registration-view/registration-view';
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
@@ -52,23 +54,25 @@ export class MainView extends React.Component {
         //if the state isn't initialized, this will throw on runtime before data is initially loaded
         const { movies, selectedMovie } = this.state;
 
-        //if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+        //if (user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
         //before moves have been loaded
         if (!movies) return <div className="main-view" />;
 
         return (
+            <div className="main-view">
+                <Container>
 
-            <Container className="main-view">
-                <Row>
-                    {selectedMovie
-                        ? <MovieView movie={selectedMovie} />
-                        : movies.map(movie => (
-                            <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)} />
-                        ))
-                    }
-                </Row>
-            </Container>
+                    <Row>
+                        {selectedMovie
+                            ? <MovieView movie={selectedMovie} />
+                            : movies.map(movie => (
+                                <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)} />
+                            ))
+                        }
+                    </Row>
+                </Container>
+            </div >
         )
     }
 }
