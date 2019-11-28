@@ -36424,7 +36424,7 @@ function (_React$Component) {
       //if the state isn't initialized, this will throw on runtime before data is initially loaded
       var _this$state = this.state,
           movies = _this$state.movies,
-          selectedMovie = _this$state.selectedMovie; //if (user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+          selectedMovie = _this$state.selectedMovie; //if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
       //before moves have been loaded
 
       if (!movies) return _react.default.createElement("div", {
