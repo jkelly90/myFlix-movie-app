@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Button from 'react-bootstrap/Button';
+import './movie-view.scss'
 
 export class MovieView extends React.Component {
 
@@ -40,3 +42,19 @@ export class MovieView extends React.Component {
         );
     }
 }
+
+MovieView.propTypes = {
+    movie: PropTypes.shape({
+        Title: PropTypes.string,
+        ImageUrl: PropTypes.string,
+        Description: PropTypes.string,
+        Genre: PropTypes.exact({
+            _id: PropTypes.string,
+            Name: PropTypes.string,
+            Description: PropTypes.string
+        }),
+        Director: PropTypes.shape({
+            Name: PropTypes.string
+        })
+    }).isRequired
+};
