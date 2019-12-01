@@ -36534,16 +36534,14 @@ function (_React$Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this3 = this;
+      var accessToken = localStorage.getItem('token');
 
-      _axios.default.get('https://my-flix-movies.herokuapp.com/movies').then(function (response) {
-        //assign the result to the state
-        _this3.setState({
-          movies: response.data
+      if (accessToken !== null) {
+        this.setState({
+          user: localStorage.getItem('user')
         });
-      }).catch(function (error) {
-        console.log(error);
-      });
+        this.getMovies(accessToken);
+      }
     }
   }, {
     key: "onLoggedIn",
@@ -36566,7 +36564,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this3 = this;
 
       //if the state isn't initialized, this will throw on runtime before data is initially loaded
       var _this$state = this.state,
@@ -36575,7 +36573,7 @@ function (_React$Component) {
           user = _this$state.user;
       if (!user) return _react.default.createElement(_loginView.LoginView, {
         onLoggedIn: function onLoggedIn(user) {
-          return _this4.onLoggedIn(user);
+          return _this3.onLoggedIn(user);
         }
       }); //before moves have been loaded
 
@@ -36591,7 +36589,7 @@ function (_React$Component) {
           key: movie._id,
           movie: movie,
           onClick: function onClick(movie) {
-            return _this4.onMovieClick(movie);
+            return _this3.onMovieClick(movie);
           }
         });
       }))));
