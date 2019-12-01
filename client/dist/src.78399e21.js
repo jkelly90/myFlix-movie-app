@@ -36019,7 +36019,7 @@ function LoginView(props) {
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault(); //send request to server for authentication
 
-    _axios.default.post('http://localhost:1234/login', {
+    _axios.default.post('https://my-flix-movies.herokuapp.com/login', {
       Username: username,
       Password: password
     }).then(function (response) {
@@ -36514,13 +36514,31 @@ function (_React$Component) {
   }
 
   _createClass(MainView, [{
+    key: "getMovies",
+    value: function getMovies(token) {
+      var _this2 = this;
+
+      _axios.default.get('https://my-flix-movies.herokuapp.com/movies', {
+        headers: {
+          Authorization: 'Bearer ${token'
+        }
+      }).then(function (response) {
+        //assign the result to the state
+        _this2.setState({
+          movies: response.data
+        });
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this2 = this;
+      var _this3 = this;
 
       _axios.default.get('https://my-flix-movies.herokuapp.com/movies').then(function (response) {
         //assign the result to the state
-        _this2.setState({
+        _this3.setState({
           movies: response.data
         });
       }).catch(function (error) {
@@ -36548,7 +36566,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       //if the state isn't initialized, this will throw on runtime before data is initially loaded
       var _this$state = this.state,
@@ -36557,7 +36575,7 @@ function (_React$Component) {
           user = _this$state.user;
       if (!user) return _react.default.createElement(_loginView.LoginView, {
         onLoggedIn: function onLoggedIn(user) {
-          return _this3.onLoggedIn(user);
+          return _this4.onLoggedIn(user);
         }
       }); //before moves have been loaded
 
@@ -36573,7 +36591,7 @@ function (_React$Component) {
           key: movie._id,
           movie: movie,
           onClick: function onClick(movie) {
-            return _this3.onMovieClick(movie);
+            return _this4.onMovieClick(movie);
           }
         });
       }))));

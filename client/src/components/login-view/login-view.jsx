@@ -16,7 +16,7 @@ export function LoginView(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         //send request to server for authentication
-        axios.post('http://localhost:1234/login', {
+        axios.post('https://my-flix-movies.herokuapp.com/login', {
             Username: username,
             Password: password
         })
