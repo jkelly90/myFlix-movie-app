@@ -24,7 +24,7 @@ let auth = require('./auth')(app);
 const cors = require('cors');
 app.use(cors());
 
-/*var allowedOrigins = ['http://localhost:8080', 'http://localhost:3000', 'http://testsite.com', "http://localhost:1234"];
+var allowedOrigins = ['http://localhost:8080', 'http://localhost:3000', 'http://testsite.com', "http://localhost:1234"];
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -35,7 +35,7 @@ app.use(cors({
     }
     return callback(null, true);
   }
-}));*/
+}));
 
 //Welcome message
 app.get("/", (req, res) => {
