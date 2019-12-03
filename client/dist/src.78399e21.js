@@ -36033,7 +36033,7 @@ function LoginView(props) {
   return _react.default.createElement(_Container.default, null, _react.default.createElement(_Form.default, {
     className: "login-form"
   }, _react.default.createElement(_Form.default.Group, {
-    controlId: "formUsername"
+    controlId: "formBasicUsername"
   }, _react.default.createElement(_Form.default.Label, null, "Username"), _react.default.createElement(_Form.default.Control, {
     type: "text",
     placeholder: "enter username",
