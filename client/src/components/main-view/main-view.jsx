@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -63,15 +64,15 @@ export class MainView extends React.Component {
         this.getMovies(authData.token);
     }
 
-    onMovieClick(movie) {
+    /*onMovieClick(movie) {
         this.setState({
             selectedMovie: movie
         });
-    }
+    }*/
 
     render() {
         //if the state isn't initialized, this will throw on runtime before data is initially loaded
-        const { movies, selectedMovie, user } = this.state;
+        const { movies, user } = this.state;
 
         if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
 
@@ -79,20 +80,14 @@ export class MainView extends React.Component {
         if (!movies) return <div className="main-view" />;
 
         return (
-            <div className="main-view">
-                <Container>
+            <Router>
+                <div className="main-view">
+                    <Route exact path="/" render={() => movies.map(m => <MovieCard key={m._id} movie={m} />)} />
+                    <Route path="/movies/:movieId" render={({ match })} => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />
 
-                    <Row>
-                        {selectedMovie
-                            ? <MovieView movie={selectedMovie} />
-                            : movies.map(movie => (
-                                <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)} />
-                            ))
-                        }
-                    </Row>
-                </Container>
-            </div >
-        )
+                </div>
+            </Router>
+        );
     }
 }
 
