@@ -43,6 +43,8 @@ app.use(function (req, res, next) {
   next()
 });
 
+auth(app)
+
 //Welcome message
 app.get("/", (req, res) => {
   res.send('Welcome to my movie app!')
@@ -59,6 +61,7 @@ app.get("/movies", passport.authenticate('jwt', { session: false }), (req, res) 
       res.status(500).send("Error" + err);
     });
 });
+
 
 //Gets data about a single movie, by Title
 app.get("/movies/:Title", passport.authenticate('jwt', { session: false }), (req, res) => {
