@@ -43,7 +43,7 @@ app.use(function (req, res, next) {
   next()
 });
 
-auth(app)
+//auth(app)
 
 //Welcome message
 app.get("/", (req, res) => {
