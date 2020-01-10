@@ -59,7 +59,7 @@ app.use(cors({
   next()
 });*/
 
-auth(app)
+//auth(app)
 
 //Welcome message
 app.get("/", (req, res) => {
