@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
@@ -21,6 +22,20 @@ export function RegistrationView(props) {
         props.onLoggedIn(username);
     }
 
+    axios.post('https://my-flix-movies.herokuapp.com/users', {
+        Username: username,
+        Password: password,
+        Email: email,
+        Birthday: birthday
+    })
+        .then(response => {
+            const data = response.data;
+            console.log(data);
+            window.open('/', '_self');
+        })
+        .catch(e => {
+            console.log('error registering the user')
+        });
 
     return (
         <Form className="registration-form">

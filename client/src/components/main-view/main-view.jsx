@@ -15,6 +15,7 @@ import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
+import { ProfileView } from '../profile-view/profile-view';
 
 export class MainView extends React.Component {
     constructor() {
@@ -23,8 +24,7 @@ export class MainView extends React.Component {
 
         //initialize the state to an empty object so can be destructured later
         this.state = {
-            movies: null,
-            //selectedMovie: null,
+            movies: [],
             user: null
         };
     }
@@ -76,7 +76,7 @@ export class MainView extends React.Component {
         //if the state isn't initialized, this will throw on runtime before data is initially loaded
         const { movies, user } = this.state;
 
-        if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+
 
         //before moves have been loaded
         if (!movies) return <div className="main-view" />;
@@ -84,15 +84,30 @@ export class MainView extends React.Component {
         return (
             <Router>
                 <div className="main-view">
-                    <Route exact path="/" render={() => movies.map(m => <MovieCard key={m._id} movie={m} />)} />
+                    <Route exact path="/" render={() => {
+                        if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+                        return movies.map(m => <MovieCard key={m._id} movie={m} />)
+                    }
+                    } />
+                    <Route path="/register" render={() => <RegistrationView />} />
                     <Route path="/movies/:movieId" render={({ match }) => <MovieView movie={movies.find(m => m._id === match.params.movieId)} />} />
+                    <Route path="/genres/:name" render={({ match }) => {
+                        if (!movies) return <div className="main-view" />;
+                        return <GenreView genre={movies.find(m => m.Genre.Name === match.params.name).Genre} />
+                    }
+                    } />
+                    <Route path="/directors/:name" render={({ match }) => {
+                        if (!movies) return <div className="main-view" />;
+                        return <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director} />
+                    }
+                    } />
                 </div>
             </Router>
         );
     }
 }
 
-/*MainView.propTypes = {
+MainView.propTypes = {
     movie: PropTypes.shape({
         Title: PropTypes.string,
         ImageUrl: PropTypes.string,
@@ -106,4 +121,4 @@ export class MainView extends React.Component {
             Name: PropTypes.string
         })
     }).isRequired
-};*/
+};
