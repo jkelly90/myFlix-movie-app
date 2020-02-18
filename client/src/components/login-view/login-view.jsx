@@ -17,8 +17,8 @@ export function LoginView(props) {
         e.preventDefault();
         //send request to server for authentication
         axios.post('https://my-flix-movies.herokuapp.com/login', {
-            Username: username,
-            Password: password
+            username: username,
+            password: password
         })
             .then(response => {
                 const data = response.data;

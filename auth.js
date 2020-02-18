@@ -15,9 +15,9 @@ function generateJWTToken(user) {
 module.exports = (router) => {
     router.post('/login',
         [
-            check("Username", "username is required").isLength({ min: 5 }),
-            check("Username", "username contains non alphanumeric characters - not allowed.").isAlphanumeric(),
-            check("Password", "password is required").not().isEmpty()
+            check("username", "username is required").isLength({ min: 5 }),
+            check("username", "username contains non alphanumeric characters - not allowed.").isAlphanumeric(),
+            check("password", "password is required").not().isEmpty()
         ],
         (req, res) => {
             //check validation object for errors

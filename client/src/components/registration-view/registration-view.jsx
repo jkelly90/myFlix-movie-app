@@ -23,10 +23,10 @@ export function RegistrationView(props) {
     }
 
     axios.post('https://my-flix-movies.herokuapp.com/users', {
-        Username: username,
-        Password: password,
-        Email: email,
-        Birthday: birthday
+        username: username,
+        password: password,
+        email: email,
+        birthday: birthday
     })
         .then(response => {
             const data = response.data;
