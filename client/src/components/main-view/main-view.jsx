@@ -107,8 +107,8 @@ export class MainView extends React.Component {
     }
 }
 
-MainView.propTypes = {
-    movie: PropTypes.shape({
+/*MainView.propTypes = {
+    movies: PropTypes.shape({
         Title: PropTypes.string,
         ImageUrl: PropTypes.string,
         Description: PropTypes.string,
@@ -121,4 +121,4 @@ MainView.propTypes = {
             Name: PropTypes.string
         })
     }).isRequired
-};
+};*/
